@@ -50,7 +50,7 @@ public class LokomotifService {
 
         modelMapper.addConverter(new StringToLocalDateTimeConverter());
 
-        LocalDateTime yesterday = LocalDateTime.now().minusDays(2);
+        LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
         LocalDateTime today = LocalDateTime.now();
         String yesterdayDate = converter.convert(yesterday);
         String todayDate = converter.convert(today);

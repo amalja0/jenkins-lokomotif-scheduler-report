@@ -39,7 +39,7 @@ public class SummaryController {
     @PostMapping("/")
     public  ResponseEntity<SummaryDto> createSummary() {
         
-        LocalDateTime yesterday = LocalDateTime.now().minusDays(3);
+        LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
         LocalDateTime today = LocalDateTime.now();
         
         List<Lokomotif> lokomotifs = lokomotifJpaRepository.findAllByCreatedDateBetween(yesterday, today);
