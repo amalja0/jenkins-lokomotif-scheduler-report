@@ -1,6 +1,9 @@
 package com.tujuhsembilan.scheduler.model.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.tujuhsembilan.scheduler.model.Lokomotif;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,13 +14,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LokomotifDto {
+public class SummaryDto {
     
-    private String _id;
-    private String kodeLoko;
-    private String namaLoko;
-    private String dimensiLoko;
-    private String status;
+    private Integer id;
+    private Integer totalLokomotif;
     private LocalDateTime createdDate;
+    private List<Lokomotif> lokomotifs;
 
 }

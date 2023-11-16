@@ -1,17 +1,12 @@
 package com.tujuhsembilan.scheduler.model;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,10 +19,9 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "lokomotif")
+@Document(collection = "lokomotifs")
 @EntityListeners(AuditingEntityListener.class)
-public class Lokomotif {
+public class LokomotifDocument {
     
     @Id
     private String _id;
@@ -45,11 +39,6 @@ public class Lokomotif {
     private String status;
 
     @Column
-    @CreatedDate
-    private LocalDateTime createdDate;
-
-    @ManyToOne
-    @JoinColumn(name = "summary_id", nullable = true)
-    private Summary summary;
+    private String createdDate;
 
 }

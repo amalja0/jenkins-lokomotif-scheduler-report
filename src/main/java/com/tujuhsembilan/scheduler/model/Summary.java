@@ -1,13 +1,15 @@
 package com.tujuhsembilan.scheduler.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -25,31 +27,22 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "lokomotif")
+@Table(name = "summary")
 @EntityListeners(AuditingEntityListener.class)
-public class Lokomotif {
+public class Summary {
     
     @Id
-    private String _id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
 
     @Column
-    private String kodeLoko;
-
-    @Column
-    private String namaLoko;
-
-    @Column
-    private String dimensiLoko;
-
-    @Column
-    private String status;
+    private Integer totalLokomotif;
 
     @Column
     @CreatedDate
     private LocalDateTime createdDate;
 
-    @ManyToOne
-    @JoinColumn(name = "summary_id", nullable = true)
-    private Summary summary;
-
+    @Column
+    @OneToMany(mappedBy = "summary")
+    private List<Lokomotif> lokomotifs;
 }
