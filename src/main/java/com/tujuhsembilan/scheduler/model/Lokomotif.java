@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AllArgsConstructor;
@@ -44,8 +43,7 @@ public class Lokomotif {
     @Column
     private String status;
 
-    @Column
-    @CreatedDate
+    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime createdDate;
 
     @ManyToOne

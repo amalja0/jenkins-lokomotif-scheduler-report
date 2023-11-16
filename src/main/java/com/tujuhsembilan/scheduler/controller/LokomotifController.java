@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tujuhsembilan.scheduler.model.Lokomotif;
 import com.tujuhsembilan.scheduler.model.dto.LokomotifDto;
 import com.tujuhsembilan.scheduler.repository.LokomotifJpaRepository;
-import com.tujuhsembilan.scheduler.repository.LokomotifMongoRepository;
 import com.tujuhsembilan.scheduler.service.LokomotifService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,8 +28,6 @@ public class LokomotifController {
     private final ModelMapper modelMapper;
 
     private final LokomotifService lokomotifService;
-
-    private final LokomotifMongoRepository lokomotifMongoRepository;
 
     private final LokomotifJpaRepository lokomotifJpaRepository;
 

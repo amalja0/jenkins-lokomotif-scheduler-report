@@ -27,7 +27,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "summary")
+@Table(name = "summary", schema = "public")
 @EntityListeners(AuditingEntityListener.class)
 public class Summary {
     

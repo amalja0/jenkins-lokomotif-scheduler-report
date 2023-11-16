@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.tujuhsembilan.scheduler.model.Lokomotif;
 import com.tujuhsembilan.scheduler.model.LokomotifDocument;
+import com.tujuhsembilan.scheduler.repository.LokomotifJpaRepository;
 import com.tujuhsembilan.scheduler.repository.LokomotifMongoRepository;
 import com.tujuhsembilan.scheduler.utils.LocalDateTimeToStringConverter;
 import com.tujuhsembilan.scheduler.utils.StringToLocalDateTimeConverter;
@@ -25,6 +26,8 @@ public class LokomotifService {
     private final ModelMapper modelMapper;
     
     private final LokomotifMongoRepository lokomotifMongoRepository;
+
+    private final LokomotifJpaRepository lokomotifJpaRepository;
 
     public List<Lokomotif> getAllLokomotif() {
 
@@ -60,6 +63,7 @@ public class LokomotifService {
             .collect(Collectors.toList());
         
         return lokomotifs;
+
     }
 
 }
