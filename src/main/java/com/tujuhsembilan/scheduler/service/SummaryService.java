@@ -20,6 +20,7 @@ public class SummaryService {
     public Summary createSummary(List<Lokomotif> lokomotifs) {
         var dailySummary = Summary
             .builder()
+            .totalLokomotif(lokomotifs.size())
             .lokomotifs(lokomotifs)
             .build();
         
