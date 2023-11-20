@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,8 +39,8 @@ public class SummaryController {
 
     @ResponseBody
     @PostMapping("/")
-    @Scheduled(fixedRate = 60000)
-    public  ResponseEntity<SummaryDto> createSummary() {
+    @Scheduled(fixedRate = 3600000)
+    public ResponseEntity<SummaryDto> createSummary() {
         
         LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
         LocalDateTime today = LocalDateTime.now();

@@ -32,7 +32,6 @@ public class LokomotifController {
 
     private final LokomotifJpaRepository lokomotifJpaRepository;
 
-    @ResponseBody
     @GetMapping("/")
     public ResponseEntity<List<LokomotifDto>> getAllLokomotif() {
 
@@ -47,7 +46,7 @@ public class LokomotifController {
     }
 
     @PostMapping("/")
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 3600000)
     public ResponseEntity<List<LokomotifDto>> saveLokomotifCreatedYesterday() {
 
         List<Lokomotif> data = lokomotifService.getLokomotifCreatedYesterday();
