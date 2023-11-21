@@ -1,16 +1,20 @@
 package com.tujuhsembilan.scheduler.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,9 +37,14 @@ public class LokomotifController {
     private final LokomotifJpaRepository lokomotifJpaRepository;
 
     @GetMapping("/")
-    public ResponseEntity<List<LokomotifDto>> getAllLokomotif() {
+    public ResponseEntity<List<LokomotifDto>> getAllLokomotif(@RequestParam int page) {
 
-        List<Lokomotif> data = lokomotifService.getLokomotifCreatedYesterday();
+        LocalDateTime yesterday = LocalDateTime.now().minusDays(3);
+        LocalDateTime today = LocalDateTime.now();
+
+        Pageable pageRequest = PageRequest.of(page, Integer.MAX_VALUE);
+        
+        List<Lokomotif> data = lokomotifJpaRepository.findAllByCreatedDateBetween(yesterday, today, pageRequest);
 
         List<LokomotifDto> dtos = data
             .stream()

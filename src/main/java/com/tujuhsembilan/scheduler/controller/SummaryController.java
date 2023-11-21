@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -42,10 +43,10 @@ public class SummaryController {
     @Scheduled(fixedRate = 3600000)
     public ResponseEntity<SummaryDto> createSummary() {
         
-        LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
+        LocalDateTime yesterday = LocalDateTime.now().minusDays(3);
         LocalDateTime today = LocalDateTime.now();
         
-        List<Lokomotif> lokomotifs = lokomotifJpaRepository.findAllByCreatedDateBetween(yesterday, today);
+        List<Lokomotif> lokomotifs = lokomotifJpaRepository.findAllByCreatedDateBetween(yesterday, today, Pageable.unpaged());
 
         var savedSummary = summaryService.createSummary(lokomotifs);
 
