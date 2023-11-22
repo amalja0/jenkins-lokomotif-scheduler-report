@@ -7,25 +7,18 @@ pipeline{
         jdk 'java'
     }
     stages{
-        stage('Build project'){
-            steps{
-                sh '''mvn clean install'''
+        stage('SCM') {
+            steps {
+                git url: 'https://github.com/amalja0/jenkins-lokomotif-scheduler-report.git'
             }
         }
-        stage('SonarQube analysis'){
-            environment {
-                SCANNER_HOME = tool 'Sonar-scanner'
-            }
+        stage('build && SonarQube analysis'){
             steps{
-                withSonarQubeEnv(credentialsId: 'jenkins-sonarqube') {
-                    sh '''$SCANNER_HOME/bin/sonar-scanner \
-                    -Dsonar.projectKey=projectKey \
-                    -Dsonar.projectName=projectName \
-                    -Dsonar.sources=src/ \
-                    -Dsonar.java.binaries=target/classes/ \
-                    -Dsonar.exclusions=src/test/java/****/*.java \
-                    -Dsonar.java.libraries=/var/lib/jenkins/.m2/**/*.jar \
-                    -Dsonar.projectVersion=${BUILD_NUMBER}-${GIT_COMMIT_SHORT}'''
+                withSonarQubeEnv('SonarQube') {
+                    // Optionally use a Maven environment you've configured already
+                    withMaven(maven:'Maven 3.9.5') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
                 }
             }
         }
