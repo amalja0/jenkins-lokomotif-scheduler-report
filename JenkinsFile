@@ -14,7 +14,7 @@ pipeline{
     stages{
         stage("Pre-Build"){
             steps{
-                bat "curl --location --request POST 'https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage' --form text='${TEXT_PRE_BUILD}' --form chat_id='${TELEGRAM_CHAT_ID}'"
+                bat 'wget --post-data "text=${TEXT_PRE_BUILD}&chat_id=${TELEGRAM_CHAT_ID}" "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage"'
             }
             
         }
@@ -40,10 +40,10 @@ pipeline{
     }
     post{
         success{
-            bat "curl --location --request POST 'https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage' --form text='${TEXT_SUCCESS_BUILD}' --form chat_id='${TELEGRAM_CHAT_ID}'"
+            bat 'wget --post-data "text=${TEXT_SUCCESS_BUILD}&chat_id=${TELEGRAM_CHAT_ID}" "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage"'
         }
         failure{
-            bat "curl --location --request POST 'https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage' --form text='${TEXT_FAILURE_BUILD}' --form chat_id='${TELEGRAM_CHAT_ID}'"
+            bat 'wget --post-data "text=${TEXT_FAILURE_BUILD}&chat_id=${TELEGRAM_CHAT_ID}" "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage"'
         }
     }
 }
