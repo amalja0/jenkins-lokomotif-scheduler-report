@@ -1,13 +1,15 @@
 pipeline{
     agent any
     stages{
-        stage('build && SonarQube analysis'){
+        stage("build"){
             steps{
-                withSonarQubeEnv('SonarQube') {
-                    // Optionally use a Maven environment you've configured already
-                    withMaven(maven:'Maven 3.9.5') {
-                        sh 'mvn clean package sonar:sonar'
-                    }
+                sh 'mvn clean install'
+            }
+        }
+        stage('SonarQube analysis'){
+            steps{
+                withSonarQubeEnv(credentialsId:'jenkins-sonarqube', installationName: 'SonarQube') {
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
